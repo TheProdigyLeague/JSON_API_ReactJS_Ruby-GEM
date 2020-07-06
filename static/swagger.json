@@ -1,0 +1,192 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Swagger Hello",
+        "description": "Hello World!",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000"
+        }, {
+            "url": "https://localhost:5000"
+        }
+    ],
+    "tags": [
+        {
+            "bonjour": "hello",
+            "description": "Everything about hello world!"
+        }
+    ],
+    "paths": {
+        "/hello": {
+            "get": {
+                "tags": ["hello"],
+                "summary": "Returns hello world!",
+                "description": "Returns hello world!",
+                "operationId": "getHello",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Hello"
+                        }
+                    },
+                    "application/xml": {
+                        "schema": {
+                            "$ref": "#/components/schemas/Hello"
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "{ 'hello' : 'world!' }"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "hello_auth": ["write:hellos", "read:hellos"]
+                    }
+                ]
+            },
+            "put": {
+                "tags": ["hello"],
+                "summary": "Update an existing hello",
+                "operationId": "updateHello",
+                "requestBody": {
+                    "description": "Hello that needs to be added",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Hello"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Hello"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Hello not found",
+                        "content": {}
+                    },
+                    "405": {
+                        "description": "Validation exception",
+                        "content": {}
+                    }
+                },
+                "security": [
+                    {
+                        "hello_auth": ["write:hellos", "read:hellos"]
+                    }
+                ],
+                "x-codegen-request-body-name": "body"
+            },
+            "post": {
+                "tags": ["hello"],
+                "summary": "Add a new hello world!",
+                "operationId": "addHello",
+                "requestBody": {
+                    "description": "Hello that needs to be added",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Hello"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Hello"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "405": {
+                        "description": "Invalid input",
+                        "content": {}
+                    }
+                },
+                "security": [
+                    {
+                        "hello_auth": ["write:hellos", "read:hellos"]
+                    }
+                ],
+                "x-codegen-request-body-name": "body"
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Hello": {
+                "required": [
+                    "bonjour", "helloUrls"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "bonjour": {
+                        "type": "string",
+                        "example": "tout le monde!"
+                    }
+                },
+                "json": {
+                    "bonjour": "Hello"
+                }
+            },
+            "ApiResponse": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "hello_auth": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "http://auth",
+                        "scopes": {
+                            "write:hellos": "modify hellos",
+                            "read:hellos": "read hellos"
+                        }
+                    }
+                }
+            },
+            "api_key": {
+                "type": "apiKey",
+                "bonjour": "api_key",
+                "in": "header"
+            }
+        }
+    }
+}
