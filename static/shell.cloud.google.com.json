@@ -1,0 +1,16 @@
+{
+  "comment":"O vim encontrou um arquivo de troca editado no caminho."
+  "path":"/tmp/.client_secret"
+  _290549090654-39
+{
+"web":
+  {
+    "client_id":"290549090654-39s5p8cf9mfp7jmd2dgm6v0613bc0puc.apps.googleusercontent.com",
+    "project_id":"arris-403819",
+    "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+    "token_uri":"https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret":"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"
+  }
+}
+~                             
