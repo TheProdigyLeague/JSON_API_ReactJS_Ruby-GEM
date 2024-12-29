@@ -1,24 +1,18 @@
-#!flask/bin/python
+# $ pip install flask-cors
+# $ pip show flask-cors
+# $ pip install flask-swagger-ui
 from flask import Flask
-from flask import jsonify, request
 from flask_cors import CORS
-
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask import jsonify, request # assume swagger JSON file SWAGGER_URL = '/api/docs' 
+
 app = Flask(__name__)
-CORS(app)
+CORS(app) # API_URL = '/static/swagger.json' exposed Swagger.json
 
-### swagger specific ###
-swagger_url = '/doc'
-api_url = '/static/swagger.json'
-ui_blueprint = get_swaggerui_blueprint(
-    swagger_url,
-    api_url,
-    config={
-        'app_name': "test"
-    }
-)
-app.register_blueprint(ui_blueprint, url_prefix=swagger_url)
-
+SWAGGER_URL = '/api/docs'
+API_URL = '/static/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(SWAGGER_URL, API_URL, config={'app_name': 'webullsdk'})
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 @app.route('/hello', methods=['GET', 'POST', 'PUT'])
 def index():
@@ -27,10 +21,11 @@ def index():
     elif request.method == 'PUT':
         data = request.json
     else:
-        data = {"hello": "world!"}
+        data = {"webull": "sdkcores"}
 
     return jsonify(data)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+# http://127.0.0.1:5000
